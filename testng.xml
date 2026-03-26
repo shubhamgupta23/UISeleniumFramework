@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="tests" thread-count="3">
+    <parameter name="environment" value="dev"/>
+    <listeners>
+            <listener class-name="com.Listeners.ITestListener"/>
+            <listener class-name="com.Listeners.IAnnotationTransformListener"/>
+    </listeners>
+    <test name="LoginTests.java">
+        <classes>
+            <class name="com.tests.LoginTests"/>
+        </classes>
+    </test>
+    <test name="InventoryTests.java">
+        <classes>
+            <class name="com.tests.InventoryTests"/>
+        </classes>
+    </test>
+</suite>
