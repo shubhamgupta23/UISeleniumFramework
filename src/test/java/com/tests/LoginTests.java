@@ -1,6 +1,7 @@
 package com.tests;
 
 import com.base.BaseClass;
+import com.dataprovider.GetTestData;
 import com.factory.LoggerFactory;
 import com.pages.LoginPage;
 import com.utils.ExtentReportUtils;
@@ -40,6 +41,12 @@ public class LoginTests extends BaseClass {
         String url = getDriver().getCurrentUrl()+"123";
         ExtentReportUtils.info("URL is : "+url);
         Assert.assertEquals(url, PropertyUtils.getProperty("URL"));
+    }
+
+    @Test(dataProvider = "getAllUser", dataProviderClass = GetTestData.class)
+    public void TC004_getAllUsers(String username, String password){
+        ExtentReportUtils.info("Username is : "+username);
+        ExtentReportUtils.info("Password is :"+password);
     }
 
 }
