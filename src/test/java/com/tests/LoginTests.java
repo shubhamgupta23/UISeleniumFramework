@@ -12,6 +12,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.Map;
+
 public class LoginTests extends BaseClass {
 
     private static final Logger log = LoggerFactory.getLogger(LoginTests.class);
@@ -44,9 +46,10 @@ public class LoginTests extends BaseClass {
     }
 
     @Test(dataProvider = "getAllUser", dataProviderClass = GetTestData.class)
-    public void TC004_getAllUsers(String username, String password){
-        ExtentReportUtils.info("Username is : "+username);
-        ExtentReportUtils.info("Password is :"+password);
+    public void TC004_getAllUsers(Map<String,Object> map){
+        ExtentReportUtils.info("Username is : "+map.get("username"));
+        ExtentReportUtils.info("Password is :"+map.get("password"));
+        ExtentReportUtils.info("Active status is :"+map.get("active"));
     }
 
 }
