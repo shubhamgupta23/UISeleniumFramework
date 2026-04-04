@@ -6,7 +6,7 @@ import com.utils.PropertyUtils;
 public class IRetryAnalyzerListener implements org.testng.IRetryAnalyzer {
 
     private int count = 0;
-    private static final int max_retry = Integer.parseInt(PropertyUtils.getProperty("FAIlTESTRETRY"));
+    private static final int max_retry = Integer.parseInt(PropertyUtils.getProperty("FAILTESTRETRY","2"));
 
     @Override
     public boolean retry(ITestResult iTestResult) {

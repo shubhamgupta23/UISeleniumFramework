@@ -27,4 +27,11 @@ public class PropertyUtils {
         return prop.getProperty(property);
     }
 
+    public static String getProperty(String property, String defaultvalue){
+        if(prop == null){
+            throw new IllegalStateException("Properties not loaded. Call loadProperties() first.");
+        }
+        return prop.getProperty(property,defaultvalue);
+    }
+
 }

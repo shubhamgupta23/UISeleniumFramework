@@ -16,4 +16,9 @@
             <class name="com.tests.InventoryTests"/>
         </classes>
     </test>
+    <test name="JsonTests.java">
+        <classes>
+            <class name="com.tests.JsonTests"/>
+        </classes>
+    </test>
 </suite>

@@ -3,7 +3,9 @@ package com.base;
 import com.factory.BrowserFactory;
 import com.factory.DriverFactory;
 import com.factory.ExtentReportFactory;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.utils.ExtentReportUtils;
+import com.utils.JSONUtils;
 import com.utils.PropertyUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
@@ -13,6 +15,8 @@ import java.time.Duration;
 
 public class BaseClass {
 
+    protected static JsonNode expected_json = null;
+
     @BeforeSuite
     @Parameters("environment")
     public void setup(String env){
@@ -21,6 +25,7 @@ public class BaseClass {
         }
         System.setProperty("environment",env);
         PropertyUtils.loadProperties();
+        expected_json = JSONUtils.readJsonFromFile(PropertyUtils.getProperty("EXPECTED_HEADERS_JSON"));
     }
 
     @BeforeTest
