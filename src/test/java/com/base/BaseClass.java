@@ -4,6 +4,7 @@ import com.factory.BrowserFactory;
 import com.factory.DriverFactory;
 import com.factory.ExtentReportFactory;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.utils.DBUtils;
 import com.utils.ExtentReportUtils;
 import com.utils.JSONUtils;
 import com.utils.PropertyUtils;
@@ -25,6 +26,7 @@ public class BaseClass {
         }
         System.setProperty("environment",env);
         PropertyUtils.loadProperties();
+        DBUtils.getConnection();
         expected_json = JSONUtils.readJsonFromFile(PropertyUtils.getProperty("EXPECTED_HEADERS_JSON"));
     }
 
@@ -55,6 +57,7 @@ public class BaseClass {
 
     @AfterSuite
     public void tearDownChild(){
+        DBUtils.closeConnection();
         ExtentReportFactory.flushReport();
     }
 

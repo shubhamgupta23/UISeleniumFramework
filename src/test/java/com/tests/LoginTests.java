@@ -4,10 +4,7 @@ import com.base.BaseClass;
 import com.dataprovider.GetTestData;
 import com.factory.LoggerFactory;
 import com.pages.LoginPage;
-import com.utils.CSVUtils;
-import com.utils.ExtentReportUtils;
-import com.utils.LoggerUtils;
-import com.utils.PropertyUtils;
+import com.utils.*;
 import org.slf4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -68,6 +65,20 @@ public class LoginTests extends BaseClass {
 
         String value = CSVUtils.readCsvRowColumn("./src/test/resources/testdata/login.csv",3,1);
         ExtentReportUtils.info(value);
+    }
+
+    @Test
+    public void TC007_workWithDb(){
+        String query = "select * from test_results;";
+        Map<String, Object> map = DBUtils.getSingleRowAsMap(query);
+        ExtentReportUtils.info(map.toString());
+        ExtentReportUtils.info(DBUtils.getColumnByName(query,"test_id"));
+        ExtentReportUtils.info(DBUtils.getAllDBRowsAsListOfMap(query).toString());
+    }
+
+    @Test
+    public void TC008_updateWithDB(){
+        String query = "";
     }
 
 }
