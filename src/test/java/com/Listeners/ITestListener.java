@@ -1,6 +1,7 @@
 package com.Listeners;
 
 import com.factory.DriverFactory;
+import com.utils.DBUtils;
 import com.utils.ExtentReportUtils;
 import com.utils.ScreenshotUtils;
 import org.testng.ITestContext;
@@ -16,12 +17,15 @@ public class ITestListener implements org.testng.ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
         ExtentReportUtils.getChildTest().pass("Test has been successfully executed : "+result.getName());
+        ExtentReportUtils.getChildTest().info(result.getTestClass().getName()+":"+result.getName());
+        DBUtils.storeResultInDB(result.getTestClass().getName()+":"+result.getName(),"PASS");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         ExtentReportUtils.getChildTest().fail("Test has been failed : "+result.getName()).addScreenCaptureFromBase64String(ScreenshotUtils.getScreenshotAsBytes(DriverFactory.getDriverInstance().getDriver()),"Failed Screenshot using byte for method "+result.getName());
         ExtentReportUtils.getChildTest().fail("Test has been failed : "+result.getName()).addScreenCaptureFromPath(ScreenshotUtils.getScreenshotAsBase64(DriverFactory.getDriverInstance().getDriver()),"Failed Screenshot using base64 for method "+result.getName());
+        DBUtils.storeResultInDB(result.getTestClass().getName()+":"+result.getName(),"FAIL");
     }
 
     @Override
