@@ -5,11 +5,13 @@ import com.dataprovider.GetTestData;
 import com.factory.LoggerFactory;
 import com.pages.LoginPage;
 import com.utils.*;
+import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,6 +81,15 @@ public class LoginTests extends BaseClass {
     @Test
     public void TC008_updateWithDB(){
         String query = "";
+    }
+
+    @Test
+    public void TC009_getAuthMe(){
+        String token = TokenManager.getToken();
+        ExtentReportUtils.info("Token : "+token);
+        Response res = APIUtils.getWithToken("/me");
+        ExtentReportUtils.info(String.valueOf(res.getStatusCode()));
+        ExtentReportUtils.info(res.getBody().asString());
     }
 
 }
