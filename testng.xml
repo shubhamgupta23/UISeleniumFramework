@@ -21,4 +21,9 @@
             <class name="com.tests.JsonTests"/>
         </classes>
     </test>
+    <test name="ChromeDevToolTests.java">
+        <classes>
+            <class name="com.tests.ChromeDevToolTests"/>
+        </classes>
+    </test>
 </suite>
