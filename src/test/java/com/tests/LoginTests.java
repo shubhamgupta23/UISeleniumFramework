@@ -5,6 +5,8 @@ import com.dataprovider.GetTestData;
 import com.factory.LoggerFactory;
 import com.pages.LoginPage;
 import com.utils.*;
+import io.restassured.config.HttpClientConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.testng.Assert;
@@ -14,6 +16,8 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static io.restassured.RestAssured.given;
 
 public class LoginTests extends BaseClass {
 
@@ -90,6 +94,19 @@ public class LoginTests extends BaseClass {
         Response res = APIUtils.getWithToken("/me");
         ExtentReportUtils.info(String.valueOf(res.getStatusCode()));
         ExtentReportUtils.info(res.getBody().asString());
+    }
+
+    @Test
+    public void TC010_timeoutRestAssured(){
+        String response = given().spec(SpecBuilderUtils.getRequestSpec())
+                .config(RestAssuredConfig.config()
+                        .httpClient(HttpClientConfig.httpClientConfig()
+                                .setParam("http.socket.timeout",3000)
+                                .setParam("http.connection.timeout",3000)
+                                .setParam("http.connection-manager.timeout",3000)
+                        )
+                ).when().get("/me").then().extract().response().asString();
+        ExtentReportUtils.info(response);
     }
 
 }
