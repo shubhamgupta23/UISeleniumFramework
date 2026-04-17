@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,6 +68,19 @@ public class JsonTests extends BaseClass {
     public void TC006_convertPojoToJson(){
         List<TestDataObjects> list_obj = JSONUtils.jsonToListPojo(JSONUtils.readJsonFromFile(jsonfilepath), TestDataObjects.class);
         ExtentReportUtils.info(JSONUtils.jsonPrettyPrint(JSONUtils.pojoToJson(list_obj)));
+    }
+
+    @Test
+    public void TC007_usageOfStreams(){
+        List<TestDataObjects> list_obj = JSONUtils.jsonToListPojo(JSONUtils.readJsonFromFile(jsonfilepath), TestDataObjects.class);
+        ExtentReportUtils.info("Iterate all objects");
+        list_obj.forEach(e->ExtentReportUtils.info(e.toString()));
+        ExtentReportUtils.info("Filter based on condition");
+        List<TestDataObjects> list_obj_filtered = list_obj.stream().filter(e->Double.parseDouble(e.getPpu())>0.55).toList();
+        list_obj_filtered.forEach(e->ExtentReportUtils.info(e.toString()));
+        ExtentReportUtils.info("compare and sort");
+        List<TestDataObjects> list_obj_sorted = list_obj.stream().sorted(Comparator.comparingDouble(pp -> Double.parseDouble(pp.getPpu()))).collect(Collectors.toList());
+        list_obj_sorted.forEach(e->ExtentReportUtils.info(e.toString()));
     }
 
 }
